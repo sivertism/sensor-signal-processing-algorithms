@@ -1,0 +1,872 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{coins\_audio\_notebook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Audio-based recognition of EU euro
+(\euro{})}\label{audio-based-recognition-of-eu-euro}
+
+    \subsection{Part 1: Load Datasets}\label{part-1-load-datasets}
+
+Load the recorded coin audio .wav files into a numpy array and create
+another numpy array with the class labels. Store resulting numpy arrays
+for data and labels as two .npy files for ease of use later on.
+
+The labels are as follows: - 0 - 1 cent coin - 1 - 10 cent coin - 2 - 2
+euro coin
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{import} \PY{n+nn}{glob}
+         \PY{k+kn}{from} \PY{n+nn}{scipy.io} \PY{k+kn}{import} \PY{n}{wavfile}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{data1Cent} \PY{o}{=} \PY{p}{[}\PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{infile}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{infile} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}audio\PYZus{}data/1\PYZus{}cent*.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{data10Cent} \PY{o}{=} \PY{p}{[}\PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{infile}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{infile} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}audio\PYZus{}data/10\PYZus{}cent*.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{data2Euro} \PY{o}{=} \PY{p}{[}\PY{n}{wavfile}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{n}{infile}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{infile} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}audio\PYZus{}data/2\PYZus{}euro*.wav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Combine into one sample set}
+         \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data1Cent} \PY{o}{+} \PY{n}{data10Cent} \PY{o}{+} \PY{n}{data2Euro}\PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{T}
+         \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{float32}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Labels:}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{150}\PY{p}{)}
+         \PY{n}{labels}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{100}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{labels}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{l+m+mi}{150}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{2}
+         
+         \PY{c+c1}{\PYZsh{} Store data into numpy array}
+         \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}data\PYZus{}raw.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}labels.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plot single sample}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample 23 (1 cent coin)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part 2: Signal
+conditioning}\label{part-2-signal-conditioning}
+
+We first normalise the data. After that we find for each sample the
+point of time when the coin first hits the table. This is done by
+searching for the first value exceeding a certain threshold value (in
+our case 70\% of maximal value). We want all samples to be of equal
+length, so using the start mark we cut out a two second window from the
+original data. After this we send the resulting two second samples
+through a high-pass filter to remove the DC component that should not be
+present in the audio recording. Finally we store the conditioned region
+of interest of each recording into a .npy file.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Normalisation}
+         \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}data\PYZus{}raw.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{n}{data} \PY{o}{/} \PY{n}{data}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample 23 (1 cent coin)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{} Find the region of interest (where the coin first hits the table) for each sample}
+         \PY{n}{step\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} Check only every n\PYZhy{}th sample to speed up process}
+         \PY{n}{mark} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n+nb}{int}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:} 
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n}{step\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{j}\PY{o}{*}\PY{n}{step\PYZus{}size}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.7}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{mark}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{j}\PY{o}{*}\PY{n}{step\PYZus{}size}
+                     \PY{k}{break}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} CLip out a two second window starting from previously found mark for each sample}
+         \PY{n}{data\PYZus{}roi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{44100}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{mark}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}roi}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{m}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{:}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{l+m+mi}{44100}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{i}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data\PYZus{}roi}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{23}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample 23 (1 cent coin)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{} Filter data, remove DC component}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k+kn}{import} \PY{n}{signal}
+         \PY{k}{def} \PY{n+nf}{butter\PYZus{}highpass}\PY{p}{(}\PY{n}{cutoff}\PY{p}{,} \PY{n}{fs}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{nyq} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{fs}
+             \PY{n}{normal\PYZus{}cutoff} \PY{o}{=} \PY{n}{cutoff} \PY{o}{/} \PY{n}{nyq}
+             \PY{n}{b}\PY{p}{,} \PY{n}{a} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{butter}\PY{p}{(}\PY{n}{order}\PY{p}{,} \PY{n}{normal\PYZus{}cutoff}\PY{p}{,} \PY{n}{btype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{analog}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+             \PY{k}{return} \PY{n}{b}\PY{p}{,} \PY{n}{a}
+         
+         \PY{k}{def} \PY{n+nf}{butter\PYZus{}highpass\PYZus{}filter}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{cutoff}\PY{p}{,} \PY{n}{fs}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{n}{b}\PY{p}{,} \PY{n}{a} \PY{o}{=} \PY{n}{butter\PYZus{}highpass}\PY{p}{(}\PY{n}{cutoff}\PY{p}{,} \PY{n}{fs}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{n}{order}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{signal}\PY{o}{.}\PY{n}{filtfilt}\PY{p}{(}\PY{n}{b}\PY{p}{,} \PY{n}{a}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+             \PY{k}{return} \PY{n}{y}
+         
+         \PY{n}{data\PYZus{}roi\PYZus{}filtered} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{44100}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cutoff} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} 10 Hz cutoff frequency}
+         \PY{n}{fs} \PY{o}{=} \PY{l+m+mi}{44100}  \PY{c+c1}{\PYZsh{} sampling frequency}
+         \PY{n}{order} \PY{o}{=} \PY{l+m+mi}{5}   \PY{c+c1}{\PYZsh{} Filter order}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}roi}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{filtered} \PY{o}{=} \PY{n}{butter\PYZus{}highpass\PYZus{}filter}\PY{p}{(}\PY{n}{data\PYZus{}roi}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{cutoff}\PY{p}{,} \PY{n}{fs}\PY{p}{,} \PY{n}{order}\PY{p}{)}
+             \PY{n}{filtered} \PY{o}{=} \PY{n}{filtered} \PY{o}{/} \PY{n}{filtered}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} 
+             \PY{n}{data\PYZus{}roi\PYZus{}filtered}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{filtered}    
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{data\PYZus{}roi\PYZus{}filtered}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{23}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample 23 (1 cent coin)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Store the filtered, normalised region of interest of each recording into a numpy array}
+         \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}data\PYZus{}roi.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data\PYZus{}roi\PYZus{}filtered}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part 3: Feature
+computation}\label{part-3-feature-computation}
+
+In this part we perform a FFT to get the frequency content of each
+sample. We use this to look for suitable features that can be used to
+classify the coins.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{} Perform FFT on data}
+         \PY{k+kn}{from} \PY{n+nn}{scipy.fftpack} \PY{k+kn}{import} \PY{n}{fft}
+         \PY{n}{data\PYZus{}roi\PYZus{}filtered} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}data\PYZus{}roi.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+           
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{88200}
+         
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{/} \PY{l+m+mi}{44100}
+         \PY{n}{data\PYZus{}fft} \PY{o}{=} \PY{p}{[}\PY{n}{fft}\PY{p}{(}\PY{n}{data\PYZus{}roi\PYZus{}filtered}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}roi\PYZus{}filtered}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+         \PY{n}{data\PYZus{}fft} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{data\PYZus{}fft}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}fft}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{} Plot some frequency plots from randomly chosen samples}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{88200}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{/} \PY{l+m+mi}{44100}
+         
+         \PY{n}{xf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}
+         \PY{n}{rows} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{randnums} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rows}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{n}{f}\PY{p}{,} \PY{n}{splt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{rows}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{randnums}\PY{p}{)}\PY{p}{:}
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].semilogy(xf, 2.0/N * np.abs(data\PYZus{}fft[p]))
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].set\PYZus{}title(\PYZdq{}Data: \PYZob{}\PYZcb{}\PYZdq{}.format(p))
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].grid()
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From the frequency plots we can see that:
+
+\begin{itemize}
+\tightlist
+\item
+  1 cent coins (data 0-49) have no distinguishable peaks
+\item
+  10 cent coins (data 50-99) have a distinguishable double peak around
+  16.000 Hz
+\item
+  2 euro coins (data 100-149) have a distinguishable peak around 17.000
+  Hz, and a double peak around 10.500 Hz
+\end{itemize}
+
+    \subsection{Part 4: Feature extraction}\label{part-4-feature-extraction}
+
+The characteristics listed above mean that we can cut out a window in
+the 15-18 KHz range and hopefully still have enough information to be
+able to classify the different coins as they all have different
+characteristics in this frequency region. We cut out a 3 KHz window and
+create several "bins" to reduce the amount of features.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{c+c1}{\PYZsh{} Extract the frequency area 15\PYZhy{}18 KHz from each sample}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{88200} \PY{c+c1}{\PYZsh{} samples}
+         \PY{n}{fs} \PY{o}{=} \PY{l+m+mi}{44100} \PY{c+c1}{\PYZsh{} sampling frequency}
+         \PY{n}{l\PYZus{}bound} \PY{o}{=} \PY{l+m+mi}{15000}\PY{o}{*}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{fs}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{u\PYZus{}bound} \PY{o}{=} \PY{l+m+mi}{18000}\PY{o}{*}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{fs}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{data\PYZus{}fft\PYZus{}roi} \PY{o}{=} \PY{n}{data\PYZus{}fft}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{l\PYZus{}bound}\PY{p}{:}\PY{n}{u\PYZus{}bound}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{} Plot some frequency plots from randomly chosen samples}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{88200}
+         \PY{n}{fs} \PY{o}{=} \PY{l+m+mi}{44100} \PY{c+c1}{\PYZsh{} sampling frequency}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.0} \PY{o}{/} \PY{n}{fs}
+         \PY{n}{xf} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{o}{/}\PY{p}{(}\PY{l+m+mf}{2.0}\PY{o}{*}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}
+         \PY{n}{rows} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{randnums} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rows}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{n}{f}\PY{p}{,} \PY{n}{splt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{rows}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{randnums}\PY{p}{)}\PY{p}{:}
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].semilogy(xf[l\PYZus{}bound:u\PYZus{}bound], np.abs(data\PYZus{}fft\PYZus{}roi[p]))
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].set\PYZus{}title(\PYZdq{}Data: \PYZob{}\PYZcb{}\PYZdq{}.format(p))
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].grid()
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{c+c1}{\PYZsh{} Create bins for frequency content}
+         \PY{n}{N} \PY{o}{=} \PY{l+m+mi}{88200}
+         \PY{n}{fs} \PY{o}{=} \PY{l+m+mi}{44100}
+         \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{bin\PYZus{}size} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{data\PYZus{}fft\PYZus{}roi}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{bins}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} in Hz}
+         \PY{n}{step} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{N}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{bin\PYZus{}size}\PY{o}{/}\PY{p}{(}\PY{n}{fs}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Bin size in samples}
+         \PY{n}{data\PYZus{}bin} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{data\PYZus{}fft\PYZus{}roi}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{data\PYZus{}fft\PYZus{}roi}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{step}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}fft\PYZus{}roi}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data\PYZus{}bin}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{sum}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{data\PYZus{}fft\PYZus{}roi}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{idx}\PY{o}{*}\PY{n}{step}\PY{p}{:}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{step}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{data\PYZus{}fft\PYZus{}roi}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{n}{step}\PY{p}{)}\PY{p}{]}   
+         
+         \PY{c+c1}{\PYZsh{} Store features in numpy array}
+         \PY{n}{np}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}features.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data\PYZus{}bin}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Plot some bar plots from randomly chosen samples}
+         \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}
+         \PY{n}{rows} \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{randnums} \PY{o}{=} \PY{p}{[}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rows}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+         \PY{n}{f}\PY{p}{,} \PY{n}{splt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{rows}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{randnums}\PY{p}{)}\PY{p}{:}
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].bar(x, data\PYZus{}bin[p])
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].set\PYZus{}title(\PYZdq{}Data: \PYZob{}\PYZcb{}\PYZdq{}.format(p))
+             \PY{n}{splt}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{rows}, i/rows].grid()
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{c+c1}{\PYZsh{} Plot average value of bins for each different class}
+          \PY{n}{data\PYZus{}bin} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coins\PYZus{}features.npy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{]}
+          \PY{n}{f}\PY{p}{,} \PY{n}{splt} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{avg}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          
+          \PY{n}{splt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{avg}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{49}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{splt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1 cent coins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{splt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{avg}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{l+m+mi}{99}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{splt}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{10 cent coins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{splt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{avg}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{l+m+mi}{149}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{splt}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2 euro coins}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From the bar plots of the frequency bins 1-10 (note the different
+absolute value for different samples) we can see that: - 1 cent coins
+(data 0-49) have roughly equally much of each bin - 10 cent coins (data
+50-99) have more of bins 2-4 than the rest, corresponding to the
+15.300-16.200 Hz region - 2 euro coins (data 100-149) have a lot more of
+bin 7 than the rest, corresponding to the 16.800-17.100 Hz region
+
+So we have found that using no more than ten features we ourselves can
+classify the coins from visual inspection of the bar plots.
+
+    \subsection{Part 5: Dimentionality
+Reduction}\label{part-5-dimentionality-reduction}
+
+\begin{itemize}
+\tightlist
+\item
+  Principal Component Analysis (PCA)
+  \href{https://en.wikipedia.org/wiki/Principal_component_analysis}{Wikipedia
+  link}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Transforms data into set of linearly uncorrelated variables called
+    \textbf{principal components}
+  \item
+    Each principal component explains some amount of the variance in the
+    data in descending order, i.e. the first principal component
+    explains the most of the variance.
+  \item
+    PCA has no information on which class a sample belongs to, it only
+    works with the data itself.
+  \item
+    "\emph{If a multivariate dataset is visualised as a set of
+    coordinates in a high-dimensional data space (1 axis per variable),
+    PCA can supply the user with a lower-dimensional picture, a
+    projection of this object when viewed from its most informative
+    viewpoint. This is done by using only the first few principal
+    components so that the dimensionality of the transformed data is
+    reduced.}" (From the Wikipedia page on PCA)
+  \end{itemize}
+\item
+  Linear Discriminant Analysis (LDA)
+  \href{https://en.wikipedia.org/wiki/Linear_discriminant_analysis}{Wikipedia
+  link}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tries to find a linear combination of features that separates the
+    classes as much as possible.
+  \item
+    This naturally means that LDA uses the labels of the data to perform
+    its operation, unlike PCA which works on unlabelled data.
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{c+c1}{\PYZsh{} PCA}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.decomposition} \PY{k+kn}{import} \PY{n}{PCA}
+         \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Visualisation}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.patches} \PY{k+kn}{as} \PY{n+nn}{mpatches}
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{1} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n+nb}{int}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{2} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{labels}\PY{p}{]}
+         \PY{n}{yPCA} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{yPCA}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{yPCA}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colors}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PCA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{green\PYZus{}patch} \PY{o}{=} \PY{n}{mpatches}\PY{o}{.}\PY{n}{Patch}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 cent coins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{red\PYZus{}patch} \PY{o}{=} \PY{n}{mpatches}\PY{o}{.}\PY{n}{Patch}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 cent coins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{blue\PYZus{}patch} \PY{o}{=} \PY{n}{mpatches}\PY{o}{.}\PY{n}{Patch}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 euro coins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{green\PYZus{}patch}\PY{p}{,} \PY{n}{red\PYZus{}patch}\PY{p}{,} \PY{n}{blue\PYZus{}patch}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} LDA}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.discriminant\PYZus{}analysis} \PY{k+kn}{import} \PY{n}{LinearDiscriminantAnalysis}
+         \PY{n}{lda} \PY{o}{=} \PY{n}{LinearDiscriminantAnalysis}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{lda} \PY{o}{=} \PY{n}{lda}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Visualisation}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{figure.figsize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}
+         \PY{n}{xVis} \PY{o}{=} \PY{n}{lda}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{xVis}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{xVis}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colors}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LDA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{green\PYZus{}patch}\PY{p}{,} \PY{n}{red\PYZus{}patch}\PY{p}{,} \PY{n}{blue\PYZus{}patch}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part 5: Classifier
+training}\label{part-5-classifier-training}
+
+Classifiers used: - Linear Discriminant Analysis (LDA) - K-nearest
+neighboors (KNN)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} Randomly split data into training and test sets. Here 80\PYZpc{} of samples for training, and the remaining 20\PYZpc{} for testing.}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{n}{xTrain}\PY{p}{,} \PY{n}{xTest}\PY{p}{,} \PY{n}{yTrain}\PY{p}{,} \PY{n}{yTest} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{c+c1}{\PYZsh{} LDA as classifier}
+          \PY{n}{clf\PYZus{}lda} \PY{o}{=} \PY{n}{LinearDiscriminantAnalysis}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{clf\PYZus{}lda} \PY{o}{=} \PY{n}{clf\PYZus{}lda}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{xTrain}\PY{p}{,} \PY{n}{yTrain}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Part 6: Classifier testing and performance
+evaluation}\label{part-6-classifier-testing-and-performance-evaluation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{} LDA as classifier}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{confusion\PYZus{}matrix}
+          
+          \PY{n}{predict} \PY{o}{=} \PY{n}{clf\PYZus{}lda}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{xTest}\PY{p}{)}
+          
+          \PY{k}{print}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{yTest}\PY{p}{,} \PY{n}{predict}\PY{p}{)}\PY{p}{)}
+          \PY{k}{print}\PY{p}{(}\PY{n}{clf\PYZus{}lda}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{xTest}\PY{p}{,} \PY{n}{yTest}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[10  0  1]
+ [ 0 10  0]
+ [ 1  0  8]]
+0.933333333333
+
+    \end{Verbatim}
+
+    \subsection{Part 7: Neural Network approach (from
+scratch)}\label{part-7-neural-network-approach-from-scratch}
+
+This part is based on the code found in
+\href{http://www.wildml.com/2015/09/implementing-a-neural-network-from-scratch/}{Implementing
+a Neural Network from Scratch in Python -- An Introduction}. In this
+part we try to make use of a small neural network to classify the coins.
+We use the ten features (frequency bins) found earlier on as inputs to
+the network.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{c+c1}{\PYZsh{}================================}
+          \PY{c+c1}{\PYZsh{} CURRENTLY NOT WORKING PROPERLY!}
+          \PY{c+c1}{\PYZsh{}================================}
+          
+          \PY{n}{num\PYZus{}examples} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}bin}\PY{p}{)} \PY{c+c1}{\PYZsh{} training set size}
+          \PY{n}{nn\PYZus{}input\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} input layer dimensionality}
+          \PY{n}{nn\PYZus{}output\PYZus{}dim} \PY{o}{=} \PY{l+m+mi}{3} \PY{c+c1}{\PYZsh{} output layer dimensionality}
+           
+          \PY{c+c1}{\PYZsh{} Gradient descent parameters (I picked these by hand)}
+          \PY{n}{epsilon} \PY{o}{=} \PY{l+m+mf}{0.01} \PY{c+c1}{\PYZsh{} learning rate for gradient descent}
+          \PY{n}{reg\PYZus{}lambda} \PY{o}{=} \PY{l+m+mf}{0.01} \PY{c+c1}{\PYZsh{} regularization strength}
+          
+          
+          \PY{c+c1}{\PYZsh{} Helper function to predict an output (0 or 1)}
+          \PY{k}{def} \PY{n+nf}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+              \PY{n}{W1}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{b2} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} Forward propagation}
+              \PY{n}{z1} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W1}\PY{p}{)} \PY{o}{+} \PY{n}{b1}
+              \PY{n}{a1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+              \PY{n}{z2} \PY{o}{=} \PY{n}{a1}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{p}{)} \PY{o}{+} \PY{n}{b2}
+              \PY{n}{exp\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+              \PY{n}{probs} \PY{o}{=} \PY{n}{exp\PYZus{}scores} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{exp\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{probs}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+              \PY{c+c1}{\PYZsh{} Helper function to evaluate the total loss on the dataset}
+          \PY{k}{def} \PY{n+nf}{calculate\PYZus{}loss}\PY{p}{(}\PY{n}{model}\PY{p}{)}\PY{p}{:}
+              \PY{n}{W1}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{b2} \PY{o}{=} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{model}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} Forward propagation to calculate our predictions}
+              \PY{n}{z1} \PY{o}{=} \PY{n}{xTrain}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W1}\PY{p}{)} \PY{o}{+} \PY{n}{b1}
+              \PY{n}{a1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+              \PY{n}{z2} \PY{o}{=} \PY{n}{a1}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{p}{)} \PY{o}{+} \PY{n}{b2}
+              \PY{n}{exp\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+              \PY{n}{probs} \PY{o}{=} \PY{n}{exp\PYZus{}scores} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{exp\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Calculating the loss}
+              \PY{n}{corect\PYZus{}logprobs} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{probs}\PY{p}{[}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{xTrain}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}\PY{p}{)}
+              \PY{n}{data\PYZus{}loss} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{corect\PYZus{}logprobs}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Add regulatization term to loss (optional)}
+              \PY{n}{data\PYZus{}loss} \PY{o}{+}\PY{o}{=} \PY{n}{reg\PYZus{}lambda}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{W1}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{W2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{l+m+mf}{1.}\PY{o}{/}\PY{n}{num\PYZus{}examples} \PY{o}{*} \PY{n}{data\PYZus{}loss}
+          
+          
+          \PY{c+c1}{\PYZsh{} This function learns parameters for the neural network and returns the model.}
+          \PY{c+c1}{\PYZsh{} \PYZhy{} nn\PYZus{}hdim: Number of nodes in the hidden layer}
+          \PY{c+c1}{\PYZsh{} \PYZhy{} num\PYZus{}passes: Number of passes through the training data for gradient descent}
+          \PY{c+c1}{\PYZsh{} \PYZhy{} print\PYZus{}loss: If True, print the loss every 1000 iterations}
+          \PY{k}{def} \PY{n+nf}{build\PYZus{}model}\PY{p}{(}\PY{n}{nn\PYZus{}hdim}\PY{p}{,} \PY{n}{num\PYZus{}passes}\PY{o}{=}\PY{l+m+mi}{20000}\PY{p}{,} \PY{n}{print\PYZus{}loss}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}\PY{p}{:}
+               
+              \PY{c+c1}{\PYZsh{} Initialize the parameters to random values. We need to learn these.}
+              \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{W1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{nn\PYZus{}input\PYZus{}dim}\PY{p}{,} \PY{n}{nn\PYZus{}hdim}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{nn\PYZus{}input\PYZus{}dim}\PY{p}{)}
+              \PY{n}{b1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{nn\PYZus{}hdim}\PY{p}{)}\PY{p}{)}
+              \PY{n}{W2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{nn\PYZus{}hdim}\PY{p}{,} \PY{n}{nn\PYZus{}output\PYZus{}dim}\PY{p}{)} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{nn\PYZus{}hdim}\PY{p}{)}
+              \PY{n}{b2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{nn\PYZus{}output\PYZus{}dim}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} This is what we return at the end}
+              \PY{n}{model} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+               
+              \PY{c+c1}{\PYZsh{} Gradient descent. For each batch...}
+              \PY{n}{delta3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{120}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{xrange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{num\PYZus{}passes}\PY{p}{)}\PY{p}{:}
+           
+                  \PY{c+c1}{\PYZsh{} Forward propagation}
+                  \PY{n}{z1} \PY{o}{=} \PY{n}{xTrain}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W1}\PY{p}{)} \PY{o}{+} \PY{n}{b1}
+                  \PY{n}{a1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+                  \PY{n}{z2} \PY{o}{=} \PY{n}{a1}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{p}{)} \PY{o}{+} \PY{n}{b2}
+                  \PY{n}{exp\PYZus{}scores} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+                  \PY{n}{probs} \PY{o}{=} \PY{n}{exp\PYZus{}scores} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{exp\PYZus{}scores}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+          
+                  \PY{c+c1}{\PYZsh{} Backpropagation}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{probs}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{sample} \PY{o}{=} \PY{n}{probs}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+                      \PY{n}{label} \PY{o}{=} \PY{n}{yTrain}\PY{p}{[}\PY{n}{j}\PY{p}{]}      
+                      \PY{k}{if} \PY{n}{label}\PY{o}{==}\PY{l+m+mi}{2}\PY{p}{:}
+                          \PY{n}{sample}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{label}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{:}
+                          \PY{n}{sample}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{sample}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=}\PY{l+m+mi}{1}
+                      \PY{n}{delta3}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{sample}
+                  
+                  \PY{c+c1}{\PYZsh{}delta3 = probs}
+                  
+                  \PY{c+c1}{\PYZsh{} delta3[range(num\PYZus{}examples), :] \PYZhy{}= 1}
+                  
+                  \PY{n}{dW2} \PY{o}{=} \PY{p}{(}\PY{n}{a1}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{delta3}\PY{p}{)}
+                  \PY{n}{db2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{delta3}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+                  \PY{n}{delta2} \PY{o}{=} \PY{n}{delta3}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{W2}\PY{o}{.}\PY{n}{T}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{power}\PY{p}{(}\PY{n}{a1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{dW1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{xTrain}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{delta2}\PY{p}{)}
+                  \PY{n}{db1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{delta2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+           
+                  \PY{c+c1}{\PYZsh{} Add regularization terms (b1 and b2 don\PYZsq{}t have regularization terms)}
+                  \PY{n}{dW2} \PY{o}{+}\PY{o}{=} \PY{n}{reg\PYZus{}lambda} \PY{o}{*} \PY{n}{W2}
+                  \PY{n}{dW1} \PY{o}{+}\PY{o}{=} \PY{n}{reg\PYZus{}lambda} \PY{o}{*} \PY{n}{W1}
+           
+                  \PY{c+c1}{\PYZsh{} Gradient descent parameter update}
+                  \PY{n}{W1} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{epsilon} \PY{o}{*} \PY{n}{dW1}
+                  \PY{n}{b1} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{epsilon} \PY{o}{*} \PY{n}{db1}
+                  \PY{n}{W2} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{epsilon} \PY{o}{*} \PY{n}{dW2}
+                  \PY{n}{b2} \PY{o}{+}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{epsilon} \PY{o}{*} \PY{n}{db2}
+                  \PY{c+c1}{\PYZsh{}print W1}
+                  \PY{c+c1}{\PYZsh{} Assign new parameters to the model}
+                  \PY{n}{model} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{W1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{b1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{W2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{W2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{b2}\PY{p}{\PYZcb{}}
+                   
+                  \PY{c+c1}{\PYZsh{} Optionally print the loss.}
+                  \PY{c+c1}{\PYZsh{} This is expensive because it uses the whole dataset, so we don\PYZsq{}t want to do it too often.}
+                  \PY{k}{if} \PY{n}{print\PYZus{}loss} \PY{o+ow}{and} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{1000}==0:
+                      \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss after iteration }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{calculate\PYZus{}loss}\PY{p}{(}\PY{n}{model}\PY{p}{)}\PY{p}{)}     
+              \PY{k}{return} \PY{n}{model}
+          
+          \PY{n}{model} \PY{o}{=} \PY{n}{build\PYZus{}model}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{print\PYZus{}loss}\PY{o}{=}\PY{n+nb+bp}{False}\PY{p}{)}
+          \PY{n}{pred\PYZus{}res} \PY{o}{=} \PY{n}{predict}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{xTest}\PY{p}{)}
+          
+          \PY{k}{print} \PY{n}{pred\PYZus{}res}
+          \PY{k}{print} \PY{n}{yTest}
+\end{Verbatim}
+
+
+    \subsection{Part 8: Neural Network using
+Tensorflow}\label{part-8-neural-network-using-tensorflow}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
